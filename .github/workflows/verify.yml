@@ -25,3 +25,4 @@ jobs:
       - run: npm run example:policy
       - run: npm run example:typemcp
       - run: npm run example:bridge
+      - run: npm run audit:prod

@@ -8,8 +8,9 @@
 		"node": ">=20"
 	},
 	"scripts": {
+		"audit:prod": "npm audit --omit=dev --audit-level=low",
 		"build": "tsc --noEmit",
-		"check": "npm run format:check && npm run build && npm test",
+		"check": "npm run format:check && npm run build && npm test && npm run audit:prod",
 		"example:typechain": "tsx examples/typechain-tool-definition.ts",
 		"example:policy": "tsx examples/typechain-policy-guard.ts",
 		"example:typemcp": "tsx examples/typemcp-server-definition.ts",
@@ -32,5 +33,10 @@
 		"tsx": "^4.21.0",
 		"typescript": "^5.9.3",
 		"vitest": "^4.1.0"
+	},
+	"overrides": {
+		"@theorvane/type-mcp": {
+			"@modelcontextprotocol/sdk": "1.30.0"
+		}
 	}
 }
