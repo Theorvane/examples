@@ -1,0 +1,36 @@
+{
+	"name": "@theorvane/examples",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Runnable TypeChain and TypeMCP examples with explicit runtime boundaries.",
+	"type": "module",
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"build": "tsc --noEmit",
+		"check": "npm run format:check && npm run build && npm test",
+		"example:typechain": "tsx examples/typechain-tool-definition.ts",
+		"example:policy": "tsx examples/typechain-policy-guard.ts",
+		"example:typemcp": "tsx examples/typemcp-server-definition.ts",
+		"example:bridge": "tsx examples/typemcp-langchain-bridge.ts",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"lint": "biome check .",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@langchain/core": "^1.2.3",
+		"@theorvane/type-chain": "^0.1.1",
+		"@theorvane/type-mcp": "^0.2.0",
+		"langchain": "^1.5.4",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.4",
+		"@types/node": "^22.15.0",
+		"tsx": "^4.21.0",
+		"typescript": "^5.9.3",
+		"vitest": "^4.1.0"
+	}
+}
