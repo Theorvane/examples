@@ -18,6 +18,7 @@ npm run check
 | --- | --- | --- |
 | [Swagger Petstore TypeMCP wrapper](examples/typemcp-petstore-server.ts) | `npm run example:petstore:live` | Wrap public Swagger Petstore **read-only** operations in `@McpServer()` / `@McpTool()` declarations. |
 | [Swagger Petstore TypeChain workflow](examples/typechain-petstore-agent.ts) | `npm run example:petstore:agent` | Adapt the Petstore TypeMCP tool into an in-process TypeChain/LangChain-compatible tool and deterministically summarize live available pets. |
+| [Swagger Petstore real TypeChain agent](examples/typechain-petstore-real-agent.ts) | `npm run example:petstore:agent:real:fixture` | Build a real LangChain agent loop with TypeChain `createTypeMcpAgent()` and an application-supplied model. |
 | [TypeChain tool definition](examples/typechain-tool-definition.ts) | `npm run example:typechain` | Foundational `@Tool()` metadata and direct receiver-bound invocation. |
 | [TypeChain policy guard](examples/typechain-policy-guard.ts) | `npm run example:policy` | Foundational `@Policy()` declaration plus an application-owned approval/audit decision. |
 | [TypeMCP server definition](examples/typemcp-server-definition.ts) | `npm run example:typemcp` | Minimal decorator and explicit compilation reference. |
@@ -34,6 +35,9 @@ npm run example:petstore:live
 # Real TypeChain → adapted TypeMCP tool call followed by a deterministic summary.
 npm run example:petstore:agent
 
+# Real LangChain agent-loop proof; no network or provider credential.
+npm run example:petstore:agent:real:fixture
+
 # Deterministic fixtures used by unit tests; no network request.
 npm run example:petstore:typemcp:fixture
 npm run example:petstore:agent:fixture
@@ -41,7 +45,27 @@ npm run example:petstore:agent:fixture
 
 The TypeMCP server exposes exactly three tools: `search_available_pets`, `get_pet`, and `get_petstore_inventory`. The client fixes the public HTTPS base URL, sends only `GET` requests, applies a timeout, validates JSON response shapes, and contains no API-key, credential, create, update, or delete operation.
 
-The public Petstore service is demo infrastructure: records, status counts, and availability can change or be unavailable. Consequently, CI and unit tests use injected fixtures, while the two `:live` commands are intentional manual smoke demonstrations. The TypeChain workflow deterministically selects and calls the adapted `search_available_pets` tool; it is **not** an LLM-driven agent and it does not create an MCP client/session or host an MCP transport.
+The public Petstore service is demo infrastructure: records, status counts, and availability can change or be unavailable. Consequently, CI and unit tests use injected fixtures, while the two `:live` commands are intentional manual smoke demonstrations. `summarizeAvailablePets()` is a deterministic adapter workflow, while `createPetstoreAgent()` is the separate real LangChain agent factory. The latter delegates tool selection and agent-loop execution to LangChain through TypeChain `createTypeMcpAgent()`.
+
+### Application-owned model runtime
+
+The real agent factory accepts an already configured LangChain-compatible chat model. The application—not this repository—chooses a provider/model and owns its package installation, credentials, authorization, retry policy, and observability:
+
+```ts
+import { createPetstoreAgent } from "./examples/typechain-petstore-real-agent.js";
+
+// Construct and authenticate a LangChain-compatible model in your application.
+declare const applicationModel: Parameters<
+	typeof createPetstoreAgent
+>[0]["model"];
+
+const agent = await createPetstoreAgent({ model: applicationModel });
+const response = await agent.invoke({
+	messages: [{ role: "user", content: "Which pets are available?" }],
+});
+```
+
+`npm run example:petstore:agent:real:fixture` proves this is an actual agent loop without a live model: LangChain's `FakeToolCallingModel` selects `search_available_pets`, and the agent executes the TypeMCP-derived tool against fixture data. This repository intentionally supplies no provider SDK, API key, environment-variable model configuration, or automated live LLM command.
 
 ## Boundaries that the examples intentionally preserve
 
