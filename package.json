@@ -20,7 +20,9 @@
 		"lint": "biome check .",
 		"test": "vitest run",
 		"example:petstore:typemcp:fixture": "tsx examples/typemcp-petstore-fixture.ts",
-		"example:petstore:agent:fixture": "tsx examples/typechain-petstore-agent-fixture.ts"
+		"example:petstore:agent:fixture": "tsx examples/typechain-petstore-agent-fixture.ts",
+		"example:petstore:live": "tsx examples/petstore-live.ts",
+		"example:petstore:agent": "tsx examples/typechain-petstore-agent-live.ts"
 	},
 	"dependencies": {
 		"@langchain/core": "^1.2.3",

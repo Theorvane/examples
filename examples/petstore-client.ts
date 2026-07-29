@@ -5,11 +5,10 @@ const PETSTORE_BASE_URL = "https://petstore.swagger.io/v2";
 const rawPetSchema = z.object({
 	id: z.number().int().nonnegative(),
 	name: z.string(),
-	photoUrls: z.array(z.string()),
+	photoUrls: z.array(z.string()).optional(),
 	status: z.string().optional(),
 	category: z
 		.object({
-			id: z.number().int().nonnegative(),
 			name: z.string(),
 		})
 		.optional(),
@@ -45,13 +44,23 @@ export class PetstoreClient {
 
 	public async findAvailablePets(): Promise<readonly PetstorePet[]> {
 		const payload = await this.#getJson("/pet/findByStatus?status=available");
-		const parsed = z.array(rawPetSchema).safeParse(payload);
-		if (!parsed.success) {
+		const arrayPayload = z.array(z.unknown()).safeParse(payload);
+		if (!arrayPayload.success) {
 			throw new Error(
 				"Swagger Petstore returned an invalid available-pet payload",
 			);
 		}
-		return parsed.data.map(normalizePet);
+		const pets = arrayPayload.data
+			.map((candidate) => rawPetSchema.safeParse(candidate))
+			.flatMap((candidate) =>
+				candidate.success ? [normalizePet(candidate.data)] : [],
+			);
+		if (pets.length === 0) {
+			throw new Error(
+				"Swagger Petstore returned no valid available-pet records",
+			);
+		}
+		return pets;
 	}
 
 	public async getPet(petId: number): Promise<PetstorePet> {

@@ -59,6 +59,19 @@ describe("PetstoreClient", () => {
 		});
 	});
 
+	it("skips malformed individual public-demo records while retaining valid Petstore data", async () => {
+		const fetch = vi.fn<FetchLike>().mockResolvedValue(
+			jsonResponse([
+				{ id: "not-a-number", name: "broken", photoUrls: [] },
+				{ id: 7, name: "Milo", photoUrls: [], status: "available" },
+			]),
+		);
+
+		await expect(
+			new PetstoreClient({ fetch, timeoutMs: 1_000 }).findAvailablePets(),
+		).resolves.toEqual([{ id: 7, name: "Milo", status: "available" }]);
+	});
+
 	it("rejects malformed API data and non-success responses", async () => {
 		const malformedFetch = vi
 			.fn<FetchLike>()
