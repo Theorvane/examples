@@ -1,6 +1,8 @@
-# Swagger Petstore Agent Examples Implementation Plan
+# Swagger Petstore Agent Implementation Plan
 
-> **For Hermes:** Implement this issue-scoped plan with test-first slices and preserve the `dev` → release-only `main` workflow.
+> **Status: superseded.** The initial in-process TypeMCP adapter workflow described below was replaced by the [real MCP HTTP agent design](../superpowers/specs/2026-07-29-petstore-real-mcp-agent-design.md) and its [implementation plan](2026-07-29-petstore-real-mcp-agent-implementation.md). The active example uses loopback Streamable HTTP, an official MCP SDK client, and TypeChain `@Agent()` / `buildAgent()` façade tools.
+
+
 
 **Goal:** Replace the local catalog examples with read-only Swagger Petstore examples that wrap live Petstore GET operations in TypeMCP and show a TypeChain-adapted, deterministic agent-style summary.
 

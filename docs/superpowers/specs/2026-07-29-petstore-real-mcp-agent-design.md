@@ -1,7 +1,7 @@
 # Petstore Real MCP Agent Design
 
 **Issue:** [#27](https://github.com/Theorvane/examples/issues/27)
-**Status:** Proposed
+**Status:** Implementing
 **Decision:** Replace the mixed catalog and in-process-only Petstore examples with one deterministic, end-to-end Swagger Petstore scenario. TypeMCP exposes the Petstore tools through local Streamable HTTP; an MCP SDK client consumes that service; a TypeChain `@Agent()` class invokes the MCP client through `@Tool()` façades.
 
 ## Goal

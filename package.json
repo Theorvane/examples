@@ -2,7 +2,7 @@
 	"name": "@theorvane/examples",
 	"version": "0.1.0",
 	"private": true,
-	"description": "Runnable TypeChain and TypeMCP examples with explicit runtime boundaries.",
+	"description": "Runnable read-only Petstore TypeMCP HTTP and TypeChain agent example.",
 	"type": "module",
 	"engines": {
 		"node": ">=20"
@@ -11,19 +11,11 @@
 		"audit:prod": "npm audit --omit=dev --audit-level=low",
 		"build": "tsc --noEmit",
 		"check": "npm run format:check && npm run build && npm test && npm run audit:prod",
-		"example:typechain": "tsx examples/typechain-tool-definition.ts",
-		"example:policy": "tsx examples/typechain-policy-guard.ts",
-		"example:typemcp": "tsx examples/typemcp-server-definition.ts",
-		"example:bridge": "tsx examples/typemcp-langchain-bridge.ts",
 		"format": "biome format --write .",
 		"format:check": "biome format .",
 		"lint": "biome check .",
 		"test": "vitest run",
-		"example:petstore:typemcp:fixture": "tsx examples/typemcp-petstore-fixture.ts",
-		"example:petstore:agent:fixture": "tsx examples/typechain-petstore-agent-fixture.ts",
 		"example:petstore:live": "tsx examples/petstore-live.ts",
-		"example:petstore:agent": "tsx examples/typechain-petstore-agent-live.ts",
-		"example:petstore:agent:real:fixture": "tsx examples/typechain-petstore-real-agent-fixture.ts",
 		"example:petstore:mcp:fixture": "tsx examples/petstore-mcp-fixture.ts",
 		"example:petstore:mcp-agent:fixture": "tsx examples/typechain-petstore-mcp-agent-fixture.ts"
 	},
