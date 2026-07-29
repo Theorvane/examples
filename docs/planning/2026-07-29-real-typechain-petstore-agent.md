@@ -1,5 +1,7 @@
 # Real TypeChain Petstore Agent Implementation Plan
 
+> **Status: superseded.** This plan documented the prior in-process `createTypeMcpAgent()` demonstration. The active [real MCP HTTP agent design](../superpowers/specs/2026-07-29-petstore-real-mcp-agent-design.md) instead verifies a loopback Streamable HTTP MCP server, official MCP SDK client, and TypeChain `@Agent()` / `buildAgent()` façade.
+
 > **For Hermes:** Implement this issue-scoped plan with test-first slices and preserve the `dev` → release-only `main` workflow.
 
 **Goal:** Add a real LangChain agent factory that uses TypeChain `createTypeMcpAgent()` to operate the existing read-only Swagger Petstore TypeMCP tools, while keeping provider credentials and runtime selection application-owned.
