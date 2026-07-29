@@ -2,9 +2,14 @@ import { describe, expect, it } from "vitest";
 
 import { runExample } from "./run-example.js";
 
-describe("real TypeChain Swagger Petstore agent", () => {
-	it("runs a LangChain agent loop that selects and executes the TypeMCP search tool", () => {
-		expect(runExample("example:petstore:agent:real:fixture")).toEqual({
+describe("TypeChain Petstore MCP agent", () => {
+	it("uses an annotated facade to select and execute a Petstore MCP tool", () => {
+		expect(runExample("example:petstore:mcp-agent:fixture")).toEqual({
+			discoveredTools: [
+				"search_available_pets",
+				"get_pet",
+				"get_petstore_inventory",
+			],
 			tool: "search_available_pets",
 			toolCallId: "available-pets-call",
 			result: [

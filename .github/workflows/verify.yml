@@ -21,8 +21,6 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: npm test
-      - run: npm run example:typechain
-      - run: npm run example:policy
-      - run: npm run example:typemcp
-      - run: npm run example:bridge
+      - run: npm run example:petstore:mcp:fixture
+      - run: npm run example:petstore:mcp-agent:fixture
       - run: npm run audit:prod
