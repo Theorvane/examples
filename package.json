@@ -18,7 +18,8 @@
 		"format": "biome format --write .",
 		"format:check": "biome format .",
 		"lint": "biome check .",
-		"test": "vitest run"
+		"test": "vitest run",
+		"example:petstore:typemcp:fixture": "tsx examples/typemcp-petstore-fixture.ts"
 	},
 	"dependencies": {
 		"@langchain/core": "^1.2.3",
