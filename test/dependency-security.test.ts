@@ -10,25 +10,19 @@ type Lockfile = {
 };
 
 describe("production dependency security", () => {
-	it("pins the examples application to the audited MCP SDK graph", () => {
+	it("uses the published TypeMCP remediation without a local override", () => {
 		const packageJson = JSON.parse(
 			readFileSync(resolve(repositoryRoot, "package.json"), "utf8"),
 		) as {
-			readonly overrides?: {
-				readonly "@theorvane/type-mcp"?: {
-					readonly "@modelcontextprotocol/sdk"?: string;
-				};
+			readonly dependencies?: {
+				readonly "@theorvane/type-mcp"?: string;
 			};
 		};
 		const lockfile = JSON.parse(
 			readFileSync(resolve(repositoryRoot, "package-lock.json"), "utf8"),
 		) as Lockfile;
 
-		expect(
-			packageJson.overrides?.["@theorvane/type-mcp"]?.[
-				"@modelcontextprotocol/sdk"
-			],
-		).toBe("1.30.0");
+		expect(packageJson.dependencies?.["@theorvane/type-mcp"]).toBe("^0.2.2");
 		expect(
 			lockfile.packages["node_modules/@modelcontextprotocol/sdk"]?.version,
 		).toBe("1.30.0");

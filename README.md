@@ -32,9 +32,7 @@ These examples show declaration and adapter boundaries, not a full hosted applic
 
 ## Dependency-security boundary
 
-The published `@theorvane/type-mcp` package currently exact-pins an MCP SDK release whose transitive `@hono/node-server` graph is affected by [GHSA-frvp-7c67-39w9](https://github.com/advisories/GHSA-frvp-7c67-39w9). This **examples application** uses an npm `overrides` entry to resolve its lockfile to `@modelcontextprotocol/sdk@1.30.0` and `@hono/node-server@2.0.12`; `npm run audit:prod` verifies the resulting production graph.
-
-This override is intentionally scoped to this repository and is **not a remediation for downstream TypeMCP consumers**. The package-level remediation remains tracked in [Theorvane/type-mcp#93](https://github.com/Theorvane/type-mcp/issues/93).
+These examples use the published `@theorvane/type-mcp@^0.2.2` remediation. Its consumer-enforceable dependency contract resolves `@modelcontextprotocol/sdk@1.30.0` and `@hono/node-server@2.0.12`; `npm run audit:prod` verifies the installed production graph with no local npm override.
 
 ## Development
 
@@ -49,7 +47,7 @@ npm run check
 ## Packages
 
 - [`@theorvane/type-chain`](https://www.npmjs.com/package/@theorvane/type-chain) `0.1.1`
-- [`@theorvane/type-mcp`](https://www.npmjs.com/package/@theorvane/type-mcp) `0.2.0`
+- [`@theorvane/type-mcp`](https://www.npmjs.com/package/@theorvane/type-mcp) `0.2.2` or later within the `0.2.x` range
 
 ## License
 
