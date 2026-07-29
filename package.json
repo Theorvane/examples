@@ -23,7 +23,8 @@
 		"example:petstore:agent:fixture": "tsx examples/typechain-petstore-agent-fixture.ts",
 		"example:petstore:live": "tsx examples/petstore-live.ts",
 		"example:petstore:agent": "tsx examples/typechain-petstore-agent-live.ts",
-		"example:petstore:agent:real:fixture": "tsx examples/typechain-petstore-real-agent-fixture.ts"
+		"example:petstore:agent:real:fixture": "tsx examples/typechain-petstore-real-agent-fixture.ts",
+		"example:petstore:mcp:fixture": "tsx examples/petstore-mcp-fixture.ts"
 	},
 	"dependencies": {
 		"@langchain/core": "^1.2.3",
